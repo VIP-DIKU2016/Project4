@@ -1,2 +1,3 @@
-To start training:
-	python code.py -train small_dataset/train/ -test small_dataset/test/
+To run the code, run the following:
+	
+> python ps.py <dataset>
