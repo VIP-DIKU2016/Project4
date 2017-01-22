@@ -66,10 +66,11 @@ def Beethoven(file):
 
     # calculate the depth
     depth = pu.unbiased_integrate(n1, n2, n3, mask)
-    
+
+    # display different views of the image 
+    pu.display_images(images, albedo = False)
     # display albedo 
-    pu.display_image(albedo)
-    
+    pu.display_images([albedo], albedo = True)
     # display the depth
     pu.display_depth_mayavi(depth)
 
@@ -106,9 +107,10 @@ def Buddha(file):
     # calculate the depth
     depth = pu.unbiased_integrate(n1, n2, n3, mask)
     
+    # display different views of the image
+    pu.display_images(images, albedo = False)
     # display albedo 
-    pu.display_image(albedo)
-
+    pu.display_images([albedo], albedo = True)
     # display the depth
     pu.display_depth_mayavi(depth)
 
@@ -120,17 +122,20 @@ def mask_img(image, mask):
 # function to unmask an image
 def unmask_img(masked, mask):
     j = 0;
+    processed = np.empty(len(mask))
     for i, pixel in enumerate(mask):
         if pixel == 1:
-            mask[i] = masked[j]
+            processed[i] = masked[j]
             j+=1
-    return np.asarray(mask)
+
+    return np.asarray(processed)
 
 # function to unmask a number of images
 def unmask_batch(imgs, mask, dim):
     processed = np.empty(dim)
     for i, img in enumerate(imgs): 
         processed[i] = unmask_img(img, mask)
+
     return processed
 
 

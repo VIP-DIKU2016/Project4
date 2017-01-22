@@ -26,6 +26,7 @@ import scipy.sparse as sp
 from scipy.sparse.linalg import spsolve
 from scipy.io import loadmat
 from matplotlib import pyplot as plt
+import math
 
 def cdx(f):
     """
@@ -331,12 +332,34 @@ def display_depth_matplotlib(z):
 
 
     
-def display_image(u):
-    """
-    Display a 2D imag
-    """
-    plt.imshow(u)
+def display_images(imgs, albedo):
+    
+    m, n = fin_mult(len(imgs))
+    fig = plt.figure()
+    for i, img in enumerate(imgs):
+        label = 'Albedo' if albedo else ("View "+str(i+1))
+        fig.add_subplot(m,n,i+1),plt.imshow(img,cmap='gray'),plt.title(label),plt.axis('off')
+
     plt.show()
+
+def fin_mult(x):
+    n = math.sqrt(x)
+    n = math.ceil(n)
+    while True:
+        if (x % n == 0):
+            m = x / n
+            break
+        else:
+            n = n + 1
+
+    return m, n
+
+
+#     1) Take the square root of the number X; we'll call it N.
+# 2) Set N equal to the ceiling of N (round up to the nearest integer).
+# 3) Test for (X % N). If N divides evenly into X, we found our first number.
+#   if 0, divide X by N to get M. M and N are our numbers
+#   if not 0, increment N by 1 and start step 3 over.
     
     
     
